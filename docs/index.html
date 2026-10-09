@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Telito — big-button TV remote</title>
+<meta name="description" content="Telito: a super-simple TV remote for elderly people. Big buttons, 3-step setup, works offline.">
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:22px;line-height:1.5;background:#fff;color:#000}
+@media(prefers-color-scheme:dark){body{background:#000;color:#fff}}
+main{max-width:640px;margin:0 auto;padding:24px 20px 48px}
+h1{font-size:44px;margin:8px 0}
+p{margin:12px 0}
+ol{padding-left:24px}
+li{margin:8px 0}
+a.btn{display:block;text-align:center;font-weight:700;font-size:24px;text-decoration:none;border:3px solid currentColor;border-radius:16px;padding:18px 16px;margin:12px 0;min-height:72px}
+a.btn:focus,a.btn:hover{outline:4px solid #FFD600;outline-offset:2px}
+.small{font-size:18px}
+nav.lang{margin:16px 0}
+nav.lang button{font-size:20px;padding:12px 16px;margin:0 8px 8px 0;min-height:56px;border-radius:12px;border:2px solid currentColor;background:none;color:inherit;cursor:pointer}
+footer{margin-top:32px;border-top:2px solid currentColor;padding-top:16px;font-size:18px}
+</style>
+</head>
+<body>
+<main>
+  <nav class="lang" aria-label="Language">
+    <button data-lang="en">English</button><button data-lang="es">Español</button><button data-lang="fr">Français</button><button data-lang="de">Deutsch</button>
+  </nav>
+  <h1 id="t">Telito</h1>
+  <p id="s"></p>
+  <ol>
+    <li id="s1"></li>
+    <li id="s2"></li>
+    <li id="s3"></li>
+  </ol>
+  <a class="btn" id="b1" href="https://apps.apple.com/app/telito"></a>
+  <a class="btn" id="b2" href="https://play.google.com/store/apps/details?id=app.telito">▶</a>
+  <h2 id="ph"></h2>
+  <p class="small" id="p"></p>
+  <footer>
+    <span id="made"></span> <a href="https://github.com/alekslinde">Aleks Linde</a> · <a href="https://telito.app">telito.app</a>
+  </footer>
+</main>
+<script>
+(function(){
+  var S={
+    en:{s:"Big buttons. No confusion. A TV remote for elderly people.",s1:"Type your TV model — we check it works.",s2:"Tap Connect — pairs over Bluetooth.",s3:"Name it (Living room) — done.",b1:"Download on the App Store",b2:"Get it on Google Play",ph:"Privacy",p:"No account. No tracking. No internet needed. Your remotes stay on your phone.",made:"Made by"},
+    es:{s:"Botones grandes. Sin confusión. Un mando para personas mayores.",s1:"Escribe tu modelo de TV — comprobamos que funcione.",s2:"Pulsa Conectar — se enlaza por Bluetooth.",s3:"Ponle nombre (Salón) — listo.",b1:"Descargar en el App Store",b2:"Disponible en Google Play",ph:"Privacidad",p:"Sin cuenta. Sin rastreo. Sin internet. Tus mandos se quedan en tu teléfono.",made:"Hecho por"},
+    fr:{s:"Gros boutons. Sans confusion. Une télécommande pour les aînés.",s1:"Tapez votre modèle de TV — on vérifie.",s2:"Touchez Connecter — via Bluetooth.",s3:"Nommez-la (Salon) — terminé.",b1:"Télécharger sur l’App Store",b2:"Disponible sur Google Play",ph:"Confidentialité",p:"Sans compte. Sans suivi. Sans internet. Vos télécommandes restent sur votre téléphone.",made:"Fait par"},
+    de:{s:"Große Tasten. Keine Verwirrung. Eine Fernbedienung für Senioren.",s1:"TV-Modell eintippen — wir prüfen es.",s2:"Verbinden tippen — per Bluetooth.",s3:"Benennen (Wohnzimmer) — fertig.",b1:"Im App Store laden",b2:"Bei Google Play laden",ph:"Datenschutz",p:"Kein Konto. Kein Tracking. Kein Internet nötig. Deine Fernbedienungen bleiben auf deinem Telefon.",made:"Gemacht von"}
+  };
+  function pick(){
+    try{
+      var q=(location.search.match(/lang=([a-z]{2})/)||[])[1];
+      if(q&&S[q])return q;
+      var l=(navigator.languages&&navigator.languages[0])||navigator.language||navigator.userLanguage||"en";
+      l=l.toLowerCase().slice(0,2);
+      return S[l]?l:"en";
+    }catch(e){return "en"}
+  }
+  function render(l){
+    var d=S[l]||S.en;
+    document.documentElement.lang=l;
+    document.getElementById("s").textContent=d.s;
+    document.getElementById("s1").textContent=d.s1;
+    document.getElementById("s2").textContent=d.s2;
+    document.getElementById("s3").textContent=d.s3;
+    document.getElementById("b1").textContent=" "+d.b1;
+    document.getElementById("b2").textContent="▶ "+d.b2;
+    document.getElementById("ph").textContent=d.ph;
+    document.getElementById("p").textContent=d.p;
+    document.getElementById("made").textContent=d.made;
+    document.title="Telito — "+d.s;
+  }
+  var btns=document.getElementsByTagName("button");
+  for(var i=0;i<btns.length;i++)(function(b){b.onclick=function(){render(b.getAttribute("data-lang"))}})(btns[i]);
+  render(pick());
+})();
+</script>
+</body>
+</html>

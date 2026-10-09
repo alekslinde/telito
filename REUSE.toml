@@ -1,0 +1,11 @@
+version = 1
+
+[[annotations]]
+path = "**"
+SPDX-FileCopyrightText = "2026 Telito Contributors"
+SPDX-License-Identifier = "PolyForm-Noncommercial-1.0.0"
+
+[[annotations]]
+path = ["assets/icon.png", "assets/adaptive-icon.png", "assets/splash.png"]
+SPDX-FileCopyrightText = "2026 Telito Contributors"
+SPDX-License-Identifier = "LicenseRef-Telito-Brand"

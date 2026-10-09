@@ -1,0 +1,42 @@
+Telito
+Copyright (c) 2026 Telito Contributors
+
+Licensing
+---------
+Source code in this repository is licensed under the PolyForm
+Noncommercial License 1.0.0. See LICENSE and LICENSES/PolyForm-Noncommercial-1.0.0.txt.
+
+The "Telito" name and the app icon/splash artwork are reserved and are
+not covered by that license. See TRADEMARKS.md and
+LICENSES/LicenseRef-Telito-Brand.txt.
+
+Third-party components
+-----------------------
+This project depends on the following open-source packages, each under
+its own license. Full license texts ship with each package under
+node_modules/ in a source checkout, or inside the package metadata of
+any published build. All are MIT-licensed; MIT requires only that the
+copyright and permission notice be preserved, which the packages
+themselves carry.
+
+  @react-native-async-storage/async-storage  https://github.com/react-native-async-storage/async-storage
+  base64-js                                   https://github.com/beatgammit/base64-js
+  expo                                        https://github.com/expo/expo
+  expo-build-properties                       https://docs.expo.dev/versions/latest/sdk/build-properties
+  expo-constants                              https://docs.expo.dev/versions/latest/sdk/constants
+  expo-haptics                                https://docs.expo.dev/versions/latest/sdk/haptics
+  expo-linking                                https://docs.expo.dev/versions/latest/sdk/linking
+  expo-localization                           https://docs.expo.dev/versions/latest/sdk/localization
+  expo-router                                 https://docs.expo.dev/routing/introduction
+  expo-secure-store                           https://docs.expo.dev/versions/latest/sdk/securestore
+  expo-status-bar                             https://docs.expo.dev/versions/latest/sdk/status-bar
+  expo-system-ui                              https://docs.expo.dev/versions/latest/sdk/system-ui
+  i18next                                     https://www.i18next.com
+  react                                       https://react.dev
+  react-dom                                   https://react.dev
+  react-i18next                               https://github.com/i18next/react-i18next
+  react-native                                https://reactnative.dev
+  react-native-ble-plx                        https://github.com/dotintent/react-native-ble-plx
+  react-native-safe-area-context              https://github.com/AppAndFlow/react-native-safe-area-context
+  react-native-screens                        https://github.com/software-mansion/react-native-screens
+  zustand                                     https://github.com/pmndrs/zustand

@@ -1,0 +1,23 @@
+Telito Brand Assets License
+
+Copyright (c) 2026 Telito Contributors. All rights reserved.
+
+The "Telito" name, wordmark, and the app icon and adaptive-icon
+artwork in this repository (assets/icon.png, assets/adaptive-icon.png,
+assets/splash.png) are not licensed under the PolyForm Noncommercial
+License that covers the project's source code.
+
+You may reference the Telito project by name (for example, "built on
+Telito", "a fork of Telito") in attribution, documentation, or links
+back to the project.
+
+You may NOT, without separate written permission:
+  - Distribute a modified or unmodified build of this software under
+    the name "Telito" or a confusingly similar name.
+  - Use the Telito icon, adaptive icon, or splash artwork in a
+    distributed build, app store listing, or any other public release.
+  - Use the Telito name or icon in a way that implies endorsement by,
+    or affiliation with, the Telito project or its contributors.
+
+Forks and redistributions must use a different name and different
+icon artwork. See TRADEMARKS.md for details.
