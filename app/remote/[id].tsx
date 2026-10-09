@@ -14,7 +14,7 @@ import { useRemotes } from '../../store/remotes';
 import { getBleManager, sendKeyToDevice, forgetWriteTarget, KEY_CODES } from '../../lib/ble';
 import { Colors, Sizes } from '../../theme';
 
-// Elderly-first remote: 6 giant buttons above the fold
+// Accessibility-first remote: 6 giant buttons above the fold
 // (Power, Vol +/-, Ch +/-, Mute). D-pad collapsed behind "More buttons"
 // so the first screen is never overwhelming.
 

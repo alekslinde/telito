@@ -48,7 +48,7 @@ export async function ensureBlePermissions(): Promise<boolean> {
   }
 }
 
-// Standard HID consumer-control codes sent to TV (subset for elderly UI).
+// Standard HID consumer-control codes sent to TV (subset for a simplified, accessible UI).
 export const KEY_CODES: Record<string, number[]> = {
   POWER: [0x30],
   HOME: [0x40],

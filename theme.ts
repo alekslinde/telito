@@ -6,7 +6,7 @@
 
 import { StyleSheet } from 'react-native';
 
-// Design tokens for elderly accessibility:
+// Design tokens for accessibility, inclusive of everyone:
 // - min touch target 72x72 (exceeds WCAG 2.2 AA 44px + AAA preference)
 // - base font 22, titles 28-34, allows OS scaling to 200%
 // - contrast ratio >= 7:1 (AAA). Pure black/white + yellow focus.

@@ -58,7 +58,7 @@ export default function ConnectScreen() {
       }
       if (dev && (dev.name || dev.localName)) {
         const n = (dev.name || dev.localName || '').toLowerCase();
-        // Prefer TV-like names; still show everything so elderly users see *something*.
+        // Prefer TV-like names; still show everything so the user sees *something* rather than an empty list.
         if (!found.has(dev.id)) {
           found.set(dev.id, dev);
           const tvFirst = [...found.values()].sort((a, b) => {

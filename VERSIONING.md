@@ -21,6 +21,6 @@ Strict [SemVer](https://semver.org): `MAJOR.MINOR.PATCH` (e.g. `1.2.3`).
 
 ## Rules
 
-- Never bump major without opening an issue first (elderly users hate surprises).
+- Never bump major without opening an issue first (users who rely on a stable, predictable flow — elderly users among them — are hit hardest by surprises).
 - Never reset `versionCode` / `buildNumber` — app stores reject re-used numbers.
 - One version per PR. If in doubt, pick PATCH and let the maintainer adjust.

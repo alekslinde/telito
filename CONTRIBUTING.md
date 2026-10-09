@@ -1,6 +1,6 @@
 # Contributing to Telito
 
-Thanks for helping keep TV simple for elderly people. Small PRs win.
+Thanks for helping keep TV simple, accessibility-first, inclusive of everyone. Small PRs win.
 
 ## Setup (2 min)
 
@@ -19,11 +19,10 @@ No backend, no keys, no account. Everything runs offline.
 
 ## Rules (please respect these)
 
-1. **Elderly-first:** min 72px touch targets, 22sp+ fonts, 7:1 contrast. No tiny text, no timed gestures, no extra screens.
+1. **Accessibility-first, inclusive of everyone:** min 72px touch targets, 22sp+ fonts, 7:1 contrast, no tiny text, no timed gestures, no extra screens. Every button needs `accessibilityRole="button"` + localized `accessibilityLabel`. Test with VoiceOver / TalkBack.
 2. **Lightweight:** no new dependencies without asking first. This app must stay <15MB and run on Android 7 / iOS 14 with 1GB RAM. Prefer deleting code over adding it.
-3. **Accessible:** every button needs `accessibilityRole="button"` + localized `accessibilityLabel`. Test with VoiceOver / TalkBack.
-4. **Offline + private:** no network calls, no analytics, no tracking SDKs. Device IDs go to SecureStore only.
-5. **i18n:** never hardcode user-facing text. Add English in `en.json`, other languages fall back to English until translated.
+3. **Offline + private:** no network calls, no analytics, no tracking SDKs. Device IDs go to SecureStore only.
+4. **i18n:** never hardcode user-facing text. Add English in `en.json`, other languages fall back to English until translated.
 
 ## PR checklist
 

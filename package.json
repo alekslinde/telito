@@ -1,7 +1,7 @@
 {
   "name": "telito",
   "version": "1.0.0",
-  "description": "Telito — super-simple, accessible TV remote for elderly. Offline-first, lightweight, source-available.",
+  "description": "Telito — super-simple, accessibility-first TV remote, inclusive of everyone. Offline-first, lightweight, source-available.",
   "license": "PolyForm-Noncommercial-1.0.0",
   "main": "expo-router/entry",
   "dependencies": {

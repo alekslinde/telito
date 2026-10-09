@@ -1,6 +1,6 @@
 # Telito — telito.app
 
-Super-simple, accessible TV remote for elderly people. Big buttons, 3-step setup, works offline. Source-available, near-zero running cost.
+Super-simple, accessibility-first TV remote, inclusive of everyone. Big buttons, 3-step setup, works offline. Source-available, near-zero running cost.
 
 ## Stack (why)
 
@@ -13,7 +13,7 @@ Super-simple, accessible TV remote for elderly people. Big buttons, 3-step setup
 | **i18next + expo-localization** | Static JSON bundles, no network/ICU. Add a language: `npm run add-language -- pt`. Ships EN/ES/FR/DE. |
 | **No UI kit, no backend, no analytics** | Keeps APK <15MB, fast on low compute, secure by default, no GDPR burden. |
 
-## Accessibility (elderly-first)
+## Accessibility (inclusive of everyone)
 
 - 72px touch targets (WCAG AAA), 22sp base font, scales to 200%
 - 7:1 contrast, dark high-contrast mode, visible focus, no timed gestures

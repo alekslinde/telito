@@ -1,0 +1,172 @@
+# Telito — Claude Config
+
+> Inherits global values from ~/.claude/CLAUDE.md
+
+---
+
+## Project Context
+
+**Stack:** Expo (SDK 57) + React Native + TypeScript, Expo Router (file-based nav)
+**Package manager:** npm
+**Primary language:** TypeScript
+
+Offline-first, accessibility-first BLE TV remote — inclusive of everyone,
+with elderly users, people with low vision or motor impairments among the
+concrete cases driving the design. No backend, no account, no analytics, no
+network calls at all. Everything persists locally (AsyncStorage +
+SecureStore). Native Architecture is enabled (`newArchEnabled` via
+prebuild) — `react-native-ble-plx` requires it.
+
+---
+
+## Project Structure
+
+```
+app/
+  index.tsx              ← Home: list of saved remotes
+  onboarding/
+    model.tsx             ← Step 1: TV model → compatibility check
+    connect.tsx            ← Step 2: BLE scan + connect
+    save.tsx                ← Step 3: name + save remote
+  remote/[id].tsx         ← The remote control screen itself
+components/
+  BigButton.tsx           ← The only button in the app — reuse it, don't invent new ones
+lib/
+  ble.ts                  ← BLE manager, permissions, key-send logic
+  tv-database.ts          ← Offline brand/model → compatibility lookup
+store/
+  remotes.ts              ← zustand store, AsyncStorage + SecureStore persistence
+i18n/
+  index.ts                ← i18next setup
+  locales/*.json           ← en/es/fr/de — never hardcode user-facing strings
+theme.ts                  ← Design tokens (colors, sizes) — accessibility-driven, don't bypass
+scripts/add-language.js   ← `npm run add-language -- <code>` scaffolds a new locale
+```
+
+No `src/` — Expo Router requires `app/` at the project root.
+
+---
+
+## Component & Code Reuse
+
+- `BigButton` is the only button component. Every tappable control uses it —
+  don't introduce a second button pattern.
+- Check `lib/ble.ts` and `store/remotes.ts` before adding new BLE or
+  persistence logic — both are intentionally small and centralized.
+- Extract logic used in 2+ places; otherwise keep it inline. The whole app is
+  ~1,100 lines — resist premature abstraction.
+
+---
+
+## Stack Conventions
+
+- **zustand** for state (`store/remotes.ts`), no React Context, no Redux.
+- **expo-router** file-based navigation — screens are files in `app/`.
+- **i18next + react-i18next** — every user-facing string goes through `t()`
+  and lives in `i18n/locales/en.json` first; other locales fall back to
+  English until translated.
+- **No UI kit.** Plain `StyleSheet.create` + the tokens in `theme.ts`. Adding
+  a component library is an explicit, discussed decision, not a default.
+- Styling always reads `useColorScheme()` and picks `Colors.light` /
+  `Colors.dark` from `theme.ts` — never hardcode a hex color in a screen.
+
+---
+
+## Accessibility (the product, not a feature of it)
+
+This is what the app is for, not a checklist item. Design for the full
+range of users — elderly, low vision, limited motor control, cognitive
+load from an unfamiliar flow — not just the median phone user:
+
+- Touch targets ≥ 72px (`Sizes.minTouch` / `Sizes.bigButtonHeight`), base
+  font 22sp, scales to 200% (`maxFontSizeMultiplier` on `BigButton`)
+- Contrast ≥ 7:1 (AAA) — see `theme.ts` for the reasoning behind each color
+- Every interactive element: `accessibilityRole` + localized
+  `accessibilityLabel` (+ `accessibilityHint` where the action isn't obvious)
+- No timed gestures, no auto-dismissing UI, no reliance on color alone
+- Haptic confirmation on press; `accessibilityLiveRegion="polite"` for status
+  changes (scan results, connection state, compatibility result)
+
+Any PR touching `components/` or `app/` should be checked against this list
+before it's considered done.
+
+---
+
+## BLE-specific rules
+
+- `sendKeyToDevice` must never silently report success. A failed write has
+  to surface to the UI — this app's one bug class worth being paranoid about
+  is "button pressed, nothing happened, no indication why."
+- Cache the discovered writable characteristic per device
+  (`lib/ble.ts:writeTargets`) rather than re-running service discovery on
+  every keypress — it's slow enough to feel on old/low-RAM phones.
+- Base64-encode via `base64-js`, not `Buffer` — Hermes has no global `Buffer`
+  polyfill in React Native.
+
+---
+
+## Git Scopes
+
+- `(ui)` — Screens and `components/`
+- `(ble)` — `lib/ble.ts`, pairing/connect flow
+- `(i18n)` — Locale files, `i18n/`
+- `(store)` — `store/remotes.ts`, persistence
+- `(config)` — `app.json`, `tsconfig.json`, build config
+- `(docs)` — README, CONTRIBUTING, licensing files
+
+---
+
+## Off Limits
+
+- Don't add a backend, account system, or any network call — this is a
+  stated product requirement, not an oversight. If a feature seems to need
+  one, flag it instead of building around it.
+- Don't add analytics, crash reporting, or tracking SDKs of any kind.
+- Don't bypass `theme.ts` tokens for one-off colors or sizes.
+- `ios/` and `android/` are gitignored and regenerated by `expo prebuild` —
+  don't hand-edit them or commit them.
+
+---
+
+## Licensing
+
+Source is **PolyForm Noncommercial 1.0.0**, not MIT — free for personal/
+noncommercial use, commercial use needs a separate agreement. The "Telito"
+name and icon are reserved (see `TRADEMARKS.md`). New source files need the
+SPDX header documented in `CONTRIBUTING.md`; `reuse lint` runs in CI and
+will fail a PR missing it.
+
+---
+
+## Commands to Know
+
+```bash
+npm install                                           # install deps
+npx expo start                                          # dev server (Expo Go / dev client)
+npm run android / npm run ios                             # native run (expo run:*)
+npm run typecheck                                           # tsc --noEmit — must pass, strict + noUncheckedIndexedAccess
+npx expo-doctor                                                # config/native sanity check — should be 21/21
+npx expo export --platform android --output-dir /tmp/out        # the real build gate: bundles every module
+npx expo prebuild --platform ios|android                           # regenerate native projects after a config/plugin change
+reuse lint                                                            # license compliance check (same as CI)
+npm run add-language -- <code>                                          # scaffold a new i18n locale
+```
+
+CI (`.github/workflows/ci.yml`) runs `expo-doctor`, `typecheck`, `expo
+export`, and `reuse lint` — all four should be green before merging.
+
+---
+
+## Notes
+
+- There are currently no automated tests (`npm test` / jest is not wired up
+  — don't assume a `test` script exists without checking `package.json`
+  first).
+- The BLE path has been verified at compile-time (bundles, native build
+  succeeds) but not yet exercised against real hardware. Treat BLE changes
+  as higher-risk until there's a device-tested confirmation.
+- Project was rebuilt from scratch on Expo SDK 57 after the original SDK 51
+  project became unbuildable (Xcode version mismatch, missing assets, dead
+  peer deps). If anything here looks like it contradicts an old blog post,
+  issue, or cached doc about an older Telito setup, trust this file and the
+  current `package.json` over any of that.

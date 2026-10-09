@@ -2,7 +2,7 @@
 <!-- One sentence: what does this change do? -->
 
 ## Why
-<!-- Which issue? Why does it matter for elderly users? -->
+<!-- Which issue? Who does it matter for — elderly users, low vision, motor impairments, or accessibility more broadly? -->
 Closes #
 
 ## Test
