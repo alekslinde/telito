@@ -149,7 +149,7 @@ export default function ConnectScreen() {
                 icon="↻"
                 onPress={scan}
               />
-            ) : null
+            ) : undefined
           }
         />
       )}
