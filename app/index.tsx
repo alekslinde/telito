@@ -4,13 +4,12 @@
  * SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
  */
 
-import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Alert, useColorScheme } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { BigButton } from '../components/BigButton';
 import { useRemotes } from '../store/remotes';
 import { Colors, Sizes } from '../theme';
-import { useColorScheme } from 'react-native';
 
 export default function Home() {
   const { t } = useTranslation();
