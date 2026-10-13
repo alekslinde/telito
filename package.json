@@ -7,28 +7,29 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",
     "base64-js": "^1.5.1",
-    "expo": "~57.0.27",
-    "expo-build-properties": "~57.0.22",
-    "expo-constants": "~57.0.21",
-    "expo-haptics": "~57.0.3",
-    "expo-linking": "~57.0.12",
-    "expo-localization": "~57.0.2",
-    "expo-router": "~57.0.25",
-    "expo-secure-store": "~57.0.4",
-    "expo-status-bar": "~57.0.1",
-    "expo-system-ui": "~57.0.4",
+    "expo": "~58.0.8",
+    "expo-build-properties": "~58.0.10",
+    "expo-constants": "~58.0.10",
+    "expo-haptics": "~58.0.6",
+    "expo-linking": "~58.0.12",
+    "expo-localization": "~58.0.4",
+    "expo-router": "~58.0.18",
+    "expo-secure-store": "~58.0.2",
+    "expo-status-bar": "~58.0.3",
+    "expo-system-ui": "~58.0.5",
     "i18next": "^26.4.2",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
     "react-i18next": "^17.0.16",
-    "react-native": "0.86.3",
+    "react-native": "0.88.0-rc.4",
     "react-native-ble-plx": "3.5.1",
-    "react-native-safe-area-context": "~5.7.0",
-    "react-native-screens": "~4.26.0",
+    "react-native-safe-area-context": "~5.9.1",
+    "react-native-screens": "~4.29.0",
     "zustand": "^5.0.15"
   },
   "devDependencies": {
-    "@types/react": "~19.2.2",
+    "@types/node": "^26.6.5",
+    "@types/react": "19.3.0",
     "typescript": "~6.0.3"
   },
   "scripts": {
@@ -36,8 +37,9 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "typecheck": "tsc --noEmit",
-    "test": "jest",
-    "add-language": "node scripts/add-language.js"
+    "test": "node --test --experimental-strip-types \"__tests__/**/*.test.ts\"",
+    "add-language": "node scripts/add-language.js",
+    "lint": "expo lint"
   },
   "private": false
 }

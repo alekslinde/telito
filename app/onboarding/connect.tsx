@@ -16,6 +16,9 @@ import { Colors } from '../../theme';
 // Step 2: BLE scan + connect. Filters for TV-like names, 15s timeout
 // (battery-friendly on old phones), one-tap connect.
 
+// Hoisted: avoid recompiling per device during scan sorting.
+const TV_NAME_RE = /tv|samsung|lg|sony|bravia|philips|tcl|fire/i;
+
 export default function ConnectScreen() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -57,13 +60,12 @@ export default function ConnectScreen() {
         return;
       }
       if (dev && (dev.name || dev.localName)) {
-        const n = (dev.name || dev.localName || '').toLowerCase();
         // Prefer TV-like names; still show everything so the user sees *something* rather than an empty list.
         if (!found.has(dev.id)) {
           found.set(dev.id, dev);
           const tvFirst = [...found.values()].sort((a, b) => {
-            const at = /tv|samsung|lg|sony|bravia|philips|tcl|fire/i.test(a.name || '');
-            const bt = /tv|samsung|lg|sony|bravia|philips|tcl|fire/i.test(b.name || '');
+            const at = TV_NAME_RE.test(a.name || '');
+            const bt = TV_NAME_RE.test(b.name || '');
             return Number(bt) - Number(at);
           });
           setDevices(tvFirst.slice(0, 8));
@@ -81,6 +83,8 @@ export default function ConnectScreen() {
   useEffect(() => {
     // Effect callbacks must be synchronous: returning a promise would make the
     // cleanup unreachable and leave the scan running after unmount.
+    // Initial BLE scan on mount is intentional external-system sync.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     void scan();
     return stopScan;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -149,7 +153,7 @@ export default function ConnectScreen() {
                 icon="↻"
                 onPress={scan}
               />
-            ) : null
+            ) : undefined
           }
         />
       )}

@@ -41,6 +41,8 @@ export default function RemoteScreen() {
   }, [remote]);
 
   useEffect(() => {
+    // Reconnect on mount / remote change is intentional external-system sync.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     void reconnect();
   }, [reconnect]);
 
